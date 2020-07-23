@@ -36,7 +36,9 @@ public class Signup extends AppCompatActivity {
     //============================================
     // HAVE TO MAKE AN OBJECT TO ACCESS A LOGIN_SUCCESSFUL BOOLEAN GLOBALLY
     //============================================
-
+    private boolean signupSuccessful = false;
+    public boolean getSignupSuccessful(){ return signupSuccessful; }
+    public void setSignupSuccessful(boolean bool){ signupSuccessful = bool; }
 
     //============================================
     // ONCREATE() -> ON ACTIVITY LOAD
