@@ -14,15 +14,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthMultiFactorException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.MultiFactorResolver;
 
 
 public class Login extends AppCompatActivity {
-
+    private static final String TAG = "LOGIN";
     //============================================
-    // DECLARE JAVA VARIABLES FOR THIS FORM
+    // GRAB FIELDS FROM XML
     //============================================
     TextInputLayout regEmailAddress, regPassword;
     Button regLoginBtn, regGoToSignupBtn;
@@ -36,48 +34,46 @@ public class Login extends AppCompatActivity {
     public void setLoginSuccessful(boolean bool){ loginSuccessful = bool; }
 
     //============================================
-    // ONCREATE() -> ON ACTIVITY LOAD
+    // ONCREATE() FUNCTION TRIGGERS WHEN ACTIVITY LOADS
     //============================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
-        //============================================
-        // CREATE AND RELATE JAVA VARIABLES WITH EACH XML ELEMENT
-        //============================================
-        regEmailAddress = findViewById(R.id.reg_emailAddress);
-        regPassword = findViewById(R.id.reg_password);
-        regLoginBtn = findViewById(R.id.reg_loginBtn);
-        regGoToSignupBtn = findViewById(R.id.reg_goToSignupBtn);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_login);
+            getSupportActionBar().hide();
+            //============================================
+            // CREATE AND RELATE JAVA VARIABLES WITH EACH XML ELEMENT
+            //============================================
+            regEmailAddress = findViewById(R.id.reg_emailAddress);
+            regPassword = findViewById(R.id.reg_password);
+            regLoginBtn = findViewById(R.id.reg_loginBtn);
+            regGoToSignupBtn = findViewById(R.id.reg_goToSignupBtn);
 
-        mAuth = FirebaseAuth.getInstance();
+            mAuth = FirebaseAuth.getInstance();
 
+            //============================================
+            // LOGIN BUTTON LISTENER
+            //============================================
+            regLoginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-        //============================================
-        // LOGIN BUTTON LISTENER
-        //============================================
-        regLoginBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
+                    String emailAddress = regEmailAddress.getEditText().getText().toString();
+                    String password = regPassword.getEditText().getText().toString();
 
-                String emailAddress = regEmailAddress.getEditText().getText().toString();
-                String password = regPassword.getEditText().getText().toString();
-
-                signIn(emailAddress, password);
-                if(getLoginSuccessful()) {
+                    signIn(emailAddress, password);
                     Intent intent = new Intent(view.getContext(), Home.class); //Load home activity
+                    startActivity(intent);
+                }
+            });
+            regGoToSignupBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), Signup.class); //Load home activity
                     view.getContext().startActivity(intent);
                 }
-            }
-        });
-        regGoToSignupBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Signup.class); //Load home activity
-                view.getContext().startActivity(intent);}
-        });
-    }
+            });
+        }
 
     private void signIn(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)

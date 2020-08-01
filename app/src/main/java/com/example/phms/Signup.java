@@ -11,26 +11,20 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthMultiFactorException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.MultiFactorResolver;
-
-
 import com.google.android.material.textfield.TextInputLayout;
 
 public class Signup extends AppCompatActivity {
 
     //============================================
-    // DECLARE JAVA VARIABLES AND FIREBASE USAGE FOR THIS FORM
+    // GRAB FIELDS FROM XML, INITIALIZE AUTHENTICATION FIREBASE MODULE
     //============================================
     TextInputLayout regEmailAddress, regPassword;
     Button regSignupBtn, regGoToLoginBtn;
     private FirebaseAuth mAuth;
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = "SIGNUP";
 
     //============================================
     // HAVE TO MAKE AN OBJECT TO ACCESS A LOGIN_SUCCESSFUL BOOLEAN GLOBALLY
@@ -40,7 +34,7 @@ public class Signup extends AppCompatActivity {
     public void setSignupSuccessful(boolean bool){ signupSuccessful = bool; }
 
     //============================================
-    // ONCREATE() -> ON ACTIVITY LOAD
+    // ONCREATE() FUNCTION TRIGGERS WHEN ACTIVITY LOADS
     //============================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +68,11 @@ public class Signup extends AppCompatActivity {
                 String password = regPassword.getEditText().getText().toString();
 
                 createAccount(emailAddress, password);
-                Log.d(TAG, "signInWithEmail:success");
+                Log.d(TAG, "phms_signInWithEmail:success");
                 signIn(emailAddress, password);
                 Intent intent = new Intent(view.getContext(), BasicInfo.class);
-                intent.putExtra("USER_ID", user_id);
-                view.getContext().startActivity(intent);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                startActivity(intent);
             }
         });
 
