@@ -4,17 +4,21 @@ import java.util.Date;
 
 public class User {
 
-    String name, username, email, password, phoneNumber;
-    int gender, weight, height, calorieGoal;
-    Date checkupDate;
+    private String name, username, email, password, phoneNumber, gender;
+    private int weight, height, calorieGoal;
+    private Date checkupDate;
 
     public User() {}
 
-    public User(String name, String email, String password, String phoneNumber) {
+    public User(String name, String email, String password, String phoneNumber, String gender, int weight, int height, int calorieGoal) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.weight = weight;
+        this.height = height;
+        this.calorieGoal = calorieGoal;
     }
 
     public String getName() {
@@ -49,11 +53,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

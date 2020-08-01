@@ -30,7 +30,6 @@ public class Signup extends AppCompatActivity {
     TextInputLayout regEmailAddress, regPassword;
     Button regSignupBtn, regGoToLoginBtn;
     private FirebaseAuth mAuth;
-
     private static final String TAG = "EmailPassword";
 
     //============================================
@@ -45,6 +44,7 @@ public class Signup extends AppCompatActivity {
     //============================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         //This Line will hide the status bar from the screen
         setContentView(R.layout.activity_signup);
@@ -72,19 +72,14 @@ public class Signup extends AppCompatActivity {
                 //Get all the values
                 String emailAddress = regEmailAddress.getEditText().getText().toString();
                 String password = regPassword.getEditText().getText().toString();
+
                 createAccount(emailAddress, password);
-                if(getSignupSuccessful()) {
-                    Log.d(TAG, "signInWithEmail:success");
-                    signIn(emailAddress, password);
-                    Intent intent = new Intent(view.getContext(), BasicInfo.class);
-                    view.getContext().startActivity(intent);
-                }
-                }
-                //============================================
-                // Now load the signup_cont Activity
-                //============================================
-                //Intent intent = new Intent(view.getContext(), Signup.class);
-                //view.getContext().startActivity(intent);
+                Log.d(TAG, "signInWithEmail:success");
+                signIn(emailAddress, password);
+                Intent intent = new Intent(view.getContext(), BasicInfo.class);
+                intent.putExtra("USER_ID", user_id);
+                view.getContext().startActivity(intent);
+            }
         });
 
         //============================================
@@ -113,7 +108,6 @@ public class Signup extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(Signup.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
-                            setSignupSuccessful(true);
                         } else {
                             // sign in fails, dispaly fail message
                             Toast.makeText(Signup.this, "Authentication failed.",
