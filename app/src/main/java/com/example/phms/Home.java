@@ -8,22 +8,16 @@ import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.auth.MultiFactorResolver;
 import com.google.firebase.database.ValueEventListener;
 
 public class Home extends AppCompatActivity {
-Button btnBtn, btnLogout;
+Button btnAccount, btnDoctor, btnHealth, btnNotes, btnLogout;
 TextView welcomeText;
 DatabaseReference db_ref;
 private static final String TAG = "Home";
@@ -38,9 +32,75 @@ private static final String TAG = "Home";
         //============================================
         // VARIABLES
         //============================================
-        btnBtn = (Button)findViewById(R.id.btnBtn);
+        btnAccount = (Button)findViewById(R.id.btnAccount);
+        btnDoctor = (Button)findViewById(R.id.btnDoctor);
+        btnHealth = (Button)findViewById(R.id.btnHealth);
+        btnNotes = (Button)findViewById(R.id.btnNotes);
         btnLogout = (Button)findViewById(R.id.btnLogout);
         welcomeText = (TextView)findViewById(R.id.welcomeText);
+
+        //============================================
+        // LOAD NAME
+        //============================================
+        db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()); // MUCH FUNCTION ACCESSING VERY WOW
+        db_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = snapshot.child("name").getValue().toString();
+                welcomeText.setText("Welcome, "+name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //============================================
+        // ACCOUNT BUTTON ONCLICK
+        //============================================
+        btnAccount.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), Account.class);
+                startActivity(intent);
+            }
+        });
+
+        //============================================
+        // DOCTOR BUTTON ONCLICK
+        //============================================
+        btnDoctor.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), Doctor.class);
+                startActivity(intent);
+            }
+        });
+
+        //============================================
+        // HEALTH BUTTON ONCLICK
+        //============================================
+        btnHealth.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), Health.class);
+                startActivity(intent);
+            }
+        });
+
+        //============================================
+        // NOTES BUTTON ONCLICK
+        //============================================
+        btnNotes.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), Notes.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         //============================================
         // SIGNOUT BUTTON ONCLICK
@@ -54,26 +114,5 @@ private static final String TAG = "Home";
             }
         });
 
-        //============================================
-        // NAME UPDATE BUTTON ONCLICK
-        //============================================
-        btnBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()); // MUCH FUNCTION ACCESSING VERY WOW
-                db_ref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String name = snapshot.child("name").getValue().toString();
-                        welcomeText.setText("Welcome, "+name);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
     }
 }

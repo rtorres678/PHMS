@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home"
+    tools:context=".Account"
     android:orientation="vertical"
     android:background="@drawable/background_color"
     android:padding="20dp">
@@ -17,69 +17,58 @@
         android:transitionName="logo_image" />
 
     <TextView
-        android:id="@+id/welcomeText"
+        android:id="@+id/headerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="What's my name?."
+        android:text="Account"
         android:textSize="18sp"
         android:transitionName="logo_desc" />
 
     <Button
-        android:id="@+id/btnAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#2CFFFFFF"
-        android:text="Account"
-        android:textColor="#FFFFFF"
-        android:transitionName="button_tran" />
-
-    <Button
-        android:id="@+id/btnDoctor"
+        android:id="@+id/btnSampleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10px"
         android:background="#2CFFFFFF"
-        android:text="Doctor"
+        android:text="Sample Button"
         android:textColor="#FFFFFF"
         android:transitionName="button_tran" />
 
     <Button
-        android:id="@+id/btnHealth"
+        android:id="@+id/btnSampleButton2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10px"
         android:background="#2CFFFFFF"
-        android:text="Health"
+        android:text="Sample Button 2"
         android:textColor="#FFFFFF"
         android:transitionName="button_tran" />
 
     <Button
-        android:id="@+id/btnNotes"
+        android:id="@+id/btnSampleButton3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10px"
         android:background="#2CFFFFFF"
-        android:text="Notes"
+        android:text="Sample Button 3"
+        android:textColor="#FFFFFF"
+        android:transitionName="button_tran" />
+
+    <Button
+        android:id="@+id/btnSampleButton4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:background="#2CFFFFFF"
+        android:text="Sample Button 4"
         android:textColor="#FFFFFF"
         android:transitionName="button_tran" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#2CFFFFFF"
-            android:text="Logout"
-            android:textColor="#FFFFFF"
-            android:transitionName="button_tran" />
-
-    </LinearLayout>
+        android:orientation="horizontal"/>
 
 </LinearLayout>
