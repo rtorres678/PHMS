@@ -64,6 +64,15 @@
         android:text="Notes"
         android:textColor="#FFFFFF"
         android:transitionName="button_tran" />
+    <Button
+        android:id="@+id/btnEmergenceContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:background="#2CFFFFFF"
+        android:text="Emergence Contact"
+        android:textColor="#FFFFFF"
+        android:transitionName="button_tran" />
 
     <LinearLayout
         android:layout_width="match_parent"
