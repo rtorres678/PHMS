@@ -20,7 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Account extends AppCompatActivity {
-    Button regUpdateBtn;
+
+    Button regUpdateBtn, btnCancel;
     TextInputLayout regName, regPhoneNumber, regGender, regWeight, regHeight, regCalorieGoal;
     DatabaseReference db_ref;
     private static final String TAG = "Account";
@@ -35,6 +36,7 @@ public class Account extends AppCompatActivity {
         //============================================
         // VARIABLES
         //============================================
+
         //============================================
         // Grab fields from XML
         //============================================
@@ -45,6 +47,9 @@ public class Account extends AppCompatActivity {
         regHeight = findViewById(R.id.reg_height);
         regCalorieGoal = findViewById(R.id.reg_calorieGoal);
         regUpdateBtn = findViewById(R.id.reg_updateBtn);
+
+        btnCancel = findViewById(R.id.btnCancel);
+
         //============================================
         // USER CLASS INSTANTIATION, DB INITIALIZATION
         //============================================
@@ -85,5 +90,14 @@ public class Account extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Home.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

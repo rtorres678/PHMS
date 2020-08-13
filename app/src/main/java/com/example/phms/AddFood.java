@@ -7,41 +7,49 @@ import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class AddNote extends AppCompatActivity {
+public class AddFood extends AppCompatActivity {
 
     Button btnSave, btnCancel;
-    TextInputLayout noteTitle, noteContents;
+    TextInputLayout foodName, foodCount;
     DatabaseReference db_ref;
-    private static final String TAG = "AddNote";
-    Note note;
+    private static final String TAG = "AddFood";
+    Food food;
     long maxid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_note);
+        setContentView(R.layout.activity_add_food);
         getSupportActionBar().hide();
         //============================================
         // Grab fields from XML
         //============================================
-        noteTitle = findViewById(R.id.noteTitle);
-        noteContents = findViewById(R.id.noteContents);
+        foodName = findViewById(R.id.foodName);
+        foodCount = findViewById(R.id.foodCount);
+
         btnSave = (Button)findViewById(R.id.btnSave);
         btnCancel = (Button)findViewById(R.id.btnCancel);
         //============================================
         // NOTE CLASS INSTANTIATION, DB INITIALIZATION
         //============================================
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-M-d", Locale.US);
+        String time = df.format(new Date());
+        Log.d(TAG, "phms_time: "+time);
+
+
         String uid =FirebaseAuth.getInstance().getCurrentUser().getUid(); //get current user's id
-        db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Notes"); //refer to /Users/<uid>/Notes
+        db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Food").child(time); //refer to /Users/<uid>/Notes
         db_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -54,20 +62,16 @@ public class AddNote extends AppCompatActivity {
 
             }
         });
-        note = new Note();
-
-        //============================================
-        // WHEN USER CLICKS "NEXT"
-        //============================================
+        food = new Food();
 
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                note.setTitle(noteTitle.getEditText().getText().toString());
-                note.setContents(noteContents.getEditText().getText().toString());
-                db_ref.child(String.valueOf(maxid+1)).setValue(note);
+                food.setname(foodName.getEditText().getText().toString());
+                food.setcalories(foodCount.getEditText().getText().toString());
+                db_ref.child(String.valueOf(maxid+1)).setValue(food);
 
-                Intent intent = new Intent(view.getContext(), Home.class);
+                Intent intent = new Intent(view.getContext(), Health.class);
                 startActivity(intent);
             }
         });
@@ -75,7 +79,7 @@ public class AddNote extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Home.class);
+                Intent intent = new Intent(view.getContext(), Health.class);
                 startActivity(intent);
             }
         });
