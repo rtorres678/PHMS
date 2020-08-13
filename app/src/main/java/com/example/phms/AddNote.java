@@ -56,6 +56,10 @@ public class AddNote extends AppCompatActivity {
         });
         note = new Note();
 
+        //============================================
+        // WHEN USER CLICKS "NEXT"
+        //============================================
+
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
