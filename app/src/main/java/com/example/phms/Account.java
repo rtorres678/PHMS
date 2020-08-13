@@ -9,6 +9,7 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,16 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Account extends AppCompatActivity {
-<<<<<<< Updated upstream
-    Button btnSampleButton, btnSampleButton2, btnSampleButton3, btnSampleButton4;
-    TextView headerText;
-=======
+
     Button regUpdateBtn, btnCancel;
     TextInputLayout regName, regPhoneNumber, regGender, regWeight, regHeight, regCalorieGoal;
->>>>>>> Stashed changes
+    Button regUpdateBtn;
+    TextInputLayout regName, regPhoneNumber, regGender, regWeight, regHeight, regCalorieGoal;
     DatabaseReference db_ref;
     private static final String TAG = "Account";
-
+    User user;
+    String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +38,7 @@ public class Account extends AppCompatActivity {
         //============================================
         // VARIABLES
         //============================================
-<<<<<<< Updated upstream
-        btnSampleButton = (Button)findViewById(R.id.btnSampleButton);
-        headerText = (TextView)findViewById(R.id.headerText);
-=======
+
         //============================================
         // Grab fields from XML
         //============================================
@@ -52,7 +49,9 @@ public class Account extends AppCompatActivity {
         regHeight = findViewById(R.id.reg_height);
         regCalorieGoal = findViewById(R.id.reg_calorieGoal);
         regUpdateBtn = findViewById(R.id.reg_updateBtn);
+
         btnCancel = findViewById(R.id.btnCancel);
+
         //============================================
         // USER CLASS INSTANTIATION, DB INITIALIZATION
         //============================================
@@ -101,6 +100,6 @@ public class Account extends AppCompatActivity {
                 startActivity(intent);
             }
         });
->>>>>>> Stashed changes
+
     }
 }
