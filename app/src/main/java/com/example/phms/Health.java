@@ -19,7 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Health extends AppCompatActivity {
-    Button btnVital, btnWeight, btnMedications, btnFood;
+    Button addVital, addWeight, addMedications, addFood;
+    Button viewVital, viewWeight, viewMedications, viewFood;
     TextView headerText;
     DatabaseReference db_ref;
     private static final String TAG = "Health";
@@ -27,16 +28,32 @@ public class Health extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
+        setContentView(R.layout.activity_health);
         getSupportActionBar().hide();
 
         //============================================
         // VARIABLES
         //============================================
-        btnVital = (Button)findViewById(R.id.btnVital);
-        btnWeight = (Button)findViewById(R.id.btnWeight);
-        btnMedications = (Button)findViewById(R.id.btnMedications);
-        btnFood = (Button)findViewById(R.id.btnFood);
+        addVital = (Button)findViewById(R.id.btnAddVital);
+        addWeight = (Button)findViewById(R.id.btnAddWeight);
+        addMedications = (Button)findViewById(R.id.btnAddMedication);
+        addFood = (Button)findViewById(R.id.btnAddFood);
         headerText = (TextView)findViewById(R.id.headerText);
+        viewVital = (Button)findViewById(R.id.btnViewVitals);
+        viewWeight = (Button)findViewById(R.id.btnViewWeights);
+        viewMedications = (Button)findViewById(R.id.btnViewMedications);
+        viewFood = (Button)findViewById(R.id.btnViewFood);
+        headerText = (TextView)findViewById(R.id.headerText);
+
+        //============================================
+        // FOOD
+        //============================================
+        addFood.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), AddFood.class);
+                startActivity(intent);
+            }
+        });
     }
 }

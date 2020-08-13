@@ -108,11 +108,11 @@ private static final String TAG = "Home";
         btnLogout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                FirebaseAuth.getInstance().signOut();
+                //FirebaseAuth.getInstance().signOut();
+                //finish();
                 Intent intent = new Intent(view.getContext(), Login.class);
                 startActivity(intent);
             }
         });
-
     }
 }
