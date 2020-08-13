@@ -4,12 +4,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/phms_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/phms_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddNote"></activity>
+        <activity android:name=".ViewWeight"></activity>
+        <activity android:name=".AddWeight" />
+        <activity android:name=".ViewFoodItems" />
+        <activity android:name=".AddFood" />
+        <activity android:name=".AddNote" />
+        <activity android:name=".ViewFood" />
         <activity android:name=".Notes" />
         <activity android:name=".Health" />
         <activity android:name=".Doctor" />

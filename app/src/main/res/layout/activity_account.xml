@@ -115,13 +115,35 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/reg_updateBtn"
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#2CFFFFFF"
-        android:text="Update"
-        android:textColor="#FFFFFF"
-        android:transitionName="button_tran"/>
+        android:layout_height="69dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/reg_updateBtn"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10px"
+            android:background="#2CFFFFFF"
+            android:text="Update"
+            android:textColor="#FFFFFF"
+            android:transitionName="button_tran" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10px"
+            android:background="#2CFFFFFF"
+            android:text="Cancel"
+            android:textColor="#FFFFFF"
+            android:transitionName="button_tran" />
+    </RelativeLayout>
+
 
 </LinearLayout>
