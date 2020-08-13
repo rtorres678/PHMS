@@ -23,8 +23,6 @@ public class Account extends AppCompatActivity {
 
     Button regUpdateBtn, btnCancel;
     TextInputLayout regName, regPhoneNumber, regGender, regWeight, regHeight, regCalorieGoal;
-    Button regUpdateBtn;
-    TextInputLayout regName, regPhoneNumber, regGender, regWeight, regHeight, regCalorieGoal;
     DatabaseReference db_ref;
     private static final String TAG = "Account";
     User user;
