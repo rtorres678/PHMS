@@ -40,13 +40,13 @@ public class AddNote extends AppCompatActivity {
         //============================================
         // NOTE CLASS INSTANTIATION, DB INITIALIZATION
         //============================================
-        String uid =FirebaseAuth.getInstance().getCurrentUser().getUid();
-        db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Notes");
+        String uid =FirebaseAuth.getInstance().getCurrentUser().getUid(); //get current user's id
+        db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Notes"); //refer to /Users/<uid>/Notes
         db_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
-                    maxid=snapshot.getChildrenCount();
+                    maxid=snapshot.getChildrenCount(); //make a snapshot, grab the "children count" which means the number of children of this users Notes (# of notes)
             }
 
             @Override
@@ -56,9 +56,6 @@ public class AddNote extends AppCompatActivity {
         });
         note = new Note();
 
-        //============================================
-        // WHEN USER CLICKS "NEXT"
-        //============================================
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
