@@ -27,13 +27,6 @@ public class Signup extends AppCompatActivity {
     private static final String TAG = "SIGNUP";
 
     //============================================
-    // HAVE TO MAKE AN OBJECT TO ACCESS A LOGIN_SUCCESSFUL BOOLEAN GLOBALLY
-    //============================================
-    private boolean signupSuccessful = false;
-    public boolean getSignupSuccessful(){ return signupSuccessful; }
-    public void setSignupSuccessful(boolean bool){ signupSuccessful = bool; }
-
-    //============================================
     // ONCREATE() FUNCTION TRIGGERS WHEN ACTIVITY LOADS
     //============================================
     @Override

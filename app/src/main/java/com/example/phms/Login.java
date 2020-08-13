@@ -27,17 +27,22 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //============================================
-    // HAVE TO MAKE AN OBJECT TO ACCESS A LOGIN_SUCCESSFUL BOOLEAN GLOBALLY
-    //============================================
-    private boolean loginSuccessful = false;
-    public boolean getLoginSuccessful(){ return loginSuccessful; }
-    public void setLoginSuccessful(boolean bool){ loginSuccessful = bool; }
-
-    //============================================
     // ONCREATE() FUNCTION TRIGGERS WHEN ACTIVITY LOADS
     //============================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        /*FirebaseUser userr=FirebaseAuth.getInstance().getCurrentUser();
+
+        if(userr!=null){
+            Log.i("phms_Username", "user " + FirebaseAuth.getInstance().getCurrentUser().getUid() + " is logged in..logging out");
+            FirebaseAuth.getInstance().signOut();
+        }
+        else{
+            Log.i("phms_Username", "there is no user");
+        }*/
+
+
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
             getSupportActionBar().hide();
@@ -82,7 +87,6 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             FirebaseUser user = mAuth.getCurrentUser();
-                            setLoginSuccessful(true);
                         } else {
                             Toast.makeText(Login.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();

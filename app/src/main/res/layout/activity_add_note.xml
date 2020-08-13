@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Notes"
+    tools:context=".AddNote"
     android:orientation="vertical"
     android:background="@drawable/background_color"
     android:padding="20dp">
@@ -17,14 +17,42 @@
         android:transitionName="logo_image" />
 
     <TextView
-        android:id="@+id/welcomeText"
+        android:id="@+id/headerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Notes"
+        android:text="Add a new note"
         android:textSize="18sp"
         android:transitionName="logo_desc" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/noteTitle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/noteContents"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:hint="Contents">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="322dp"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,16 +71,15 @@
             android:transitionName="button_tran" />
 
         <Button
-            android:id="@+id/btnNewNote"
+            android:id="@+id/btnSave"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="#2CFFFFFF"
-            android:text="New Note"
+            android:text="Save"
             android:textColor="#FFFFFF"
             android:transitionName="button_tran" />
 
     </RelativeLayout>
-
 
 </LinearLayout>

@@ -16,24 +16,42 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-
 public class Notes extends AppCompatActivity {
-    Button btnSampleButton, btnSampleButton2, btnSampleButton3, btnSampleButton4;
-    TextView headerText;
-    DatabaseReference db_ref;
+    Button btnNewNote, btnCancel;
     private static final String TAG = "Notes";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
+        setContentView(R.layout.activity_notes);
         getSupportActionBar().hide();
-
         //============================================
         // VARIABLES
         //============================================
-        btnSampleButton = (Button)findViewById(R.id.btnSampleButton);
-        headerText = (TextView)findViewById(R.id.headerText);
+        btnNewNote= (Button)findViewById(R.id.btnNewNote);
+        btnCancel = (Button)findViewById(R.id.btnCancel);
+
+        //============================================
+        // NEW NOTE BUTTON ONCLICK
+        //============================================
+        btnNewNote.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), AddNote.class);
+                startActivity(intent);
+            }
+        });
+
+        //============================================
+        // CANCEL BUTTON ONCLICK
+        //============================================
+        btnCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), Home.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
