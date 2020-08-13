@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Health extends AppCompatActivity {
-    Button addVital, addWeight, addMedications, addFood;
+    Button addVital, addWeight, addMedications, addFood, btnBack;
     Button viewVital, viewWeight, viewMedications, viewFood;
     TextView headerText;
     DatabaseReference db_ref;
@@ -43,6 +43,7 @@ public class Health extends AppCompatActivity {
         viewWeight = (Button)findViewById(R.id.btnViewWeights);
         viewMedications = (Button)findViewById(R.id.btnViewMedications);
         viewFood = (Button)findViewById(R.id.btnViewFood);
+        btnBack = (Button)findViewById(R.id.btnBack);
         headerText = (TextView)findViewById(R.id.headerText);
 
         //============================================
@@ -55,5 +56,42 @@ public class Health extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        viewFood.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), ViewFood.class);
+                startActivity(intent);
+            }
+        });
+
+        //============================================
+        // WEIGHT
+        //============================================
+        addWeight.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), AddWeight.class);
+                startActivity(intent);
+            }
+        });
+        viewWeight.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), ViewWeight.class);
+                startActivity(intent);
+            }
+        });
+
+        //============================================
+        // BACK
+        //============================================
+        btnBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), Home.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
