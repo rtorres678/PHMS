@@ -1,6 +1,5 @@
 package com.example.phms;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,30 +12,26 @@ import java.util.Locale;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class AddFood extends AppCompatActivity {
+public class AddWeight extends AppCompatActivity {
 
     Button btnSave, btnCancel;
-    TextInputLayout foodName, foodCount;
+    TextInputLayout weight;
     DatabaseReference db_ref;
-    private static final String TAG = "AddFood";
-    Food food;
-    long maxid;
+    private static final String TAG = "AddWeight";
+    int iWeight;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_food);
+        setContentView(R.layout.activity_add_weight);
         getSupportActionBar().hide();
         //============================================
         // Grab fields from XML
         //============================================
-        foodName = findViewById(R.id.foodName);
-        foodCount = findViewById(R.id.foodCount);
+        weight= findViewById(R.id.weight);
+
 
         btnSave = (Button)findViewById(R.id.btnSave);
         btnCancel = (Button)findViewById(R.id.btnCancel);
@@ -45,32 +40,17 @@ public class AddFood extends AppCompatActivity {
         //============================================
         SimpleDateFormat df = new SimpleDateFormat("yyyy-M-d", Locale.US);
         String time = df.format(new Date());
-        Log.d(TAG, "phms_time: "+time);
-
 
         String uid =FirebaseAuth.getInstance().getCurrentUser().getUid(); //get current user's id
-        db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Food").child(time); //refer to /Users/<uid>/Notes
-        db_ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                    maxid=snapshot.getChildrenCount(); //make a snapshot, grab the "children count" which means the number of children of this users Notes (# of notes)
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        food = new Food();
+        db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Weights").child(time);
 
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                food.setname(foodName.getEditText().getText().toString());
-                food.setcalories(foodCount.getEditText().getText().toString());
-                db_ref.child(String.valueOf(maxid+1)).setValue(food);
-
+                iWeight = Integer.parseInt(weight.getEditText().getText().toString());
+                db_ref.setValue(iWeight);
+                db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("weight");
+                db_ref.setValue(iWeight);
                 Intent intent = new Intent(view.getContext(), Health.class);
                 startActivity(intent);
             }
