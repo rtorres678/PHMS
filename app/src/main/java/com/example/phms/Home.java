@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Home extends AppCompatActivity {
-Button btnAccount, btnDoctor, btnHealth, btnNotes, btnLogout;
+Button btnAccount, btnDoctor, btnHealth, btnNotes, btnLogout, btnEmergencecontact;
 TextView welcomeText;
 DatabaseReference db_ref;
 private static final String TAG = "Home";
@@ -37,6 +37,7 @@ private static final String TAG = "Home";
         btnHealth = (Button)findViewById(R.id.btnHealth);
         btnNotes = (Button)findViewById(R.id.btnNotes);
         btnLogout = (Button)findViewById(R.id.btnLogout);
+        btnEmergencecontact = (Button)findViewById(R.id.btnEmergenceContact);
         welcomeText = (TextView)findViewById(R.id.welcomeText);
 
         //============================================
@@ -99,7 +100,16 @@ private static final String TAG = "Home";
                 startActivity(intent);
             }
         });
-
+        //============================================
+        // EMERGENCY BUTTON ONCLICK
+        //============================================
+        btnEmergencecontact.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), EmergencyContact.class);
+                startActivity(intent);
+            }
+        });
 
 
         //============================================

@@ -17,6 +17,7 @@
         <activity android:name=".BasicInfo" />
         <activity android:name=".Login" />
         <activity android:name=".Signup" />
+        <activity android:name=".EmergencyContact"/>
         <activity android:name=".Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
