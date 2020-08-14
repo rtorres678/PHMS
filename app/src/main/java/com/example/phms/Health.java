@@ -48,6 +48,24 @@ public class Health extends AppCompatActivity {
         btnBack = (Button)findViewById(R.id.btnBack);
         headerText = (TextView)findViewById(R.id.headerText);
 
+
+        //============================================
+        // VITAL SIGN
+        //============================================
+        addVital.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), AddVitalSign.class);
+                startActivity(intent);
+            }
+        });
+        viewVital.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), ViewVitaldate.class);
+                startActivity(intent);
+            }
+        });
         //============================================
         // FOOD
         //============================================
