@@ -74,7 +74,7 @@ private static final String TAG = "Home";
         btnDoctor.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(view.getContext(), Doctor.class);
+                Intent intent = new Intent(view.getContext(), AddDoctor.class);
                 startActivity(intent);
             }
         });
