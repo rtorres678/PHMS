@@ -25,6 +25,9 @@
         <activity android:name=".Account" />
         <activity android:name=".BasicInfo" />
         <activity android:name=".Login" />
+        <activity android:name=".AddVitalSign" />
+        <activity android:name=".ViewVitalsign" />
+        <activity android:name=".ViewVitaldate" />
         <activity android:name=".Signup">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
