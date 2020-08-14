@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Notes"
+    tools:context=".AddCheckup"
     android:orientation="vertical"
     android:background="@drawable/background_color"
     android:padding="20dp">
@@ -17,21 +17,55 @@
         android:transitionName="logo_image" />
 
     <TextView
-        android:id="@+id/welcomeText"
+        android:id="@+id/headerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Notes"
+        android:text="Add a new check-up"
         android:textSize="18sp"
         android:transitionName="logo_desc" />
 
-    <ListView
-        android:id="@+id/listView1"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/checkupDoctor"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="424dp"
-        android:layout_below="@+id/button1"
-        android:layout_centerHorizontal="true"></ListView>
+        android:layout_height="wrap_content"
+        android:hint="Doctor">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/checkupDate"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/checkupContents"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:hint="Check-up Notes">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="292dp"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -50,16 +84,15 @@
             android:transitionName="button_tran" />
 
         <Button
-            android:id="@+id/btnNewNote"
+            android:id="@+id/btnSave"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="#2CFFFFFF"
-            android:text="New Note"
+            android:text="Save"
             android:textColor="#FFFFFF"
             android:transitionName="button_tran" />
 
     </RelativeLayout>
-
 
 </LinearLayout>

@@ -47,10 +47,12 @@ public class AddWeight extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                iWeight = Integer.parseInt(weight.getEditText().getText().toString());
-                db_ref.setValue(iWeight);
-                db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("weight");
-                db_ref.setValue(iWeight);
+                if(weight.getEditText().getText().toString().matches("\\d+")) {
+                    iWeight = Integer.parseInt(weight.getEditText().getText().toString());
+                    db_ref.setValue(iWeight); //update account main weight
+                    db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("weight");
+                    db_ref.setValue(iWeight); //update daily weight log
+                }
                 Intent intent = new Intent(view.getContext(), Health.class);
                 startActivity(intent);
             }

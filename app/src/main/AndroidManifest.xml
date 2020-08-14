@@ -9,7 +9,11 @@
         android:roundIcon="@drawable/phms_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewWeight"></activity>
+        <activity android:name=".ViewMedications"></activity>
+        <activity android:name=".AddMedication" />
+        <activity android:name=".ViewCheckups" />
+        <activity android:name=".AddCheckup" />
+        <activity android:name=".ViewWeight" />
         <activity android:name=".AddWeight" />
         <activity android:name=".ViewFoodItems" />
         <activity android:name=".AddFood" />
@@ -21,15 +25,15 @@
         <activity android:name=".Account" />
         <activity android:name=".BasicInfo" />
         <activity android:name=".Login" />
-        <activity android:name=".Signup" />
-        <activity android:name=".EmergencyContact"/>
-        <activity android:name=".Home">
+        <activity android:name=".Signup">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".EmergencyContact" />
+        <activity android:name=".Home" />
     </application>
 
 </manifest>

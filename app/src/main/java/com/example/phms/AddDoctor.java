@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -21,11 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AddDoctor extends AppCompatActivity {
     Button docbtnSave, docbtnCancel;
-    TextInputLayout docName, docDate, docCheckupInfo;
+    TextInputLayout docName, docPhone, docCheckupInfo;
     DatabaseReference db_ref;
     private static final String TAG = "AddDoctor";
-    Doctor doctor;
-    long maxid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,20 +34,31 @@ public class AddDoctor extends AppCompatActivity {
         // Grab fields from XML
         //============================================
         docName = findViewById(R.id.doc_name);
-        docDate = findViewById(R.id.doc_date);
+        final EditText editName = (EditText) docName.getEditText();
+        docPhone = findViewById(R.id.doc_phone);
+        final EditText editPhone = (EditText) docPhone.getEditText();
         docCheckupInfo = findViewById(R.id.doc_CheckupInfo);
+        final EditText editCheckup = (EditText) docCheckupInfo.getEditText();
         docbtnSave = (Button)findViewById(R.id.btnSave);
         docbtnCancel = (Button)findViewById(R.id.btnCancel);
         //============================================
-        // NOTE CLASS INSTANTIATION, DB INITIALIZATION
+        // DB INITIALIZATION
         //============================================
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Doctor");
+
+
+        //============================================
+        // GRAB DB VALUES AND FILL OUT FORM
+        //============================================
         db_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                    maxid=snapshot.getChildrenCount();
+                if(snapshot.exists()) {
+                    editName.setText(snapshot.child("name").getValue().toString());
+                    editPhone.setText(snapshot.child("phone").getValue().toString());
+                    editCheckup.setText(snapshot.child("checkInfo").getValue().toString());
+                }
             }
 
             @Override
@@ -56,7 +66,7 @@ public class AddDoctor extends AppCompatActivity {
 
             }
         });
-        doctor = new Doctor();
+
 
         //============================================
         // WHEN USER CLICKS "Save"
@@ -64,10 +74,13 @@ public class AddDoctor extends AppCompatActivity {
         docbtnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                doctor.setName(docName.getEditText().getText().toString());
-                doctor.setDate(docDate.getEditText().getText().toString());
-                doctor.setCheckInfo(docCheckupInfo.getEditText().getText().toString());
-                db_ref.setValue(doctor);
+
+                if(!docName.getEditText().getText().toString().matches(""))
+                    db_ref.child("name").setValue(docName.getEditText().getText().toString());
+                if(!docPhone.getEditText().getText().toString().matches(""))
+                    db_ref.child("phone").setValue(docPhone.getEditText().getText().toString());
+                if(!docCheckupInfo.getEditText().getText().toString().matches(""))
+                    db_ref.child("checkInfo").setValue(docCheckupInfo.getEditText().getText().toString());
 
                 Intent intent = new Intent(view.getContext(), Home.class);
                 startActivity(intent);

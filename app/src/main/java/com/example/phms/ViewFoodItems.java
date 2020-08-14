@@ -30,7 +30,6 @@ public class ViewFoodItems extends AppCompatActivity {
     DatabaseReference db_ref, db_ref2;
     String date;
     ListView listview;
-    EditText GetValue;
     String[] ListElements = new String[] {};
     int totalCal;
 
@@ -39,6 +38,10 @@ public class ViewFoodItems extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_food_items);
         getSupportActionBar().hide();
+
+        //============================================
+        // VARIABLES
+        //============================================
         totalCal = 0;
         listview = (ListView) findViewById(R.id.listView1);
         btnDone = (Button)findViewById(R.id.btnDone);
@@ -49,6 +52,10 @@ public class ViewFoodItems extends AppCompatActivity {
                         ListElementsArrayList);
         listview.setAdapter(adapter);
         date = getIntent().getExtras().getString("DATE");
+
+        //============================================
+        // DATABASE
+        //============================================
         String uid =FirebaseAuth.getInstance().getCurrentUser().getUid(); //get current user's id
         db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Food").child(date); //refer to /Users/<uid>/Notes
         db_ref.addValueEventListener(new ValueEventListener() {

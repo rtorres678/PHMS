@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Add a emergency contact"
+        android:text="Add an emergency contact"
         android:textSize="18sp"
         android:transitionName="logo_desc" />
 
