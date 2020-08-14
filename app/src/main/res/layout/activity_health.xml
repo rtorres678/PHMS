@@ -138,6 +138,35 @@
     </RelativeLayout>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnAddCheckup"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10px"
+            android:background="#2CFFFFFF"
+            android:text="Add Check-up"
+            android:textColor="#FFFFFF"
+            android:transitionName="button_tran" />
+
+        <Button
+            android:id="@+id/btnViewCheckup"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10px"
+            android:background="#2CFFFFFF"
+            android:text="View Check-ups"
+            android:textColor="#FFFFFF"
+            android:transitionName="button_tran" />
+    </RelativeLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

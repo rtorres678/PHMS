@@ -33,15 +33,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        /*FirebaseUser userr=FirebaseAuth.getInstance().getCurrentUser();
 
-        if(userr!=null){
-            Log.i("phms_Username", "user " + FirebaseAuth.getInstance().getCurrentUser().getUid() + " is logged in..logging out");
-            FirebaseAuth.getInstance().signOut();
-        }
-        else{
-            Log.i("phms_Username", "there is no user");
-        }*/
 
 
             super.onCreate(savedInstanceState);
@@ -68,8 +60,6 @@ public class Login extends AppCompatActivity {
                     String password = regPassword.getEditText().getText().toString();
 
                     signIn(emailAddress, password);
-                    Intent intent = new Intent(view.getContext(), Home.class); //Load home activity
-                    startActivity(intent);
                 }
             });
             regGoToSignupBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +78,8 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(Login.this, Home.class); //Load home activity
+                            startActivity(intent);
                         } else {
                             Toast.makeText(Login.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
