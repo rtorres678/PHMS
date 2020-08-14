@@ -56,7 +56,7 @@ public class AddDoctor extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
                     editName.setText(snapshot.child("name").getValue().toString());
-                    editPhone.setText(snapshot.child("phone").getValue().toString());
+                    editPhone.setText(snapshot.child("date").getValue().toString());
                     editCheckup.setText(snapshot.child("checkInfo").getValue().toString());
                 }
             }
@@ -78,7 +78,7 @@ public class AddDoctor extends AppCompatActivity {
                 if(!docName.getEditText().getText().toString().matches(""))
                     db_ref.child("name").setValue(docName.getEditText().getText().toString());
                 if(!docPhone.getEditText().getText().toString().matches(""))
-                    db_ref.child("phone").setValue(docPhone.getEditText().getText().toString());
+                    db_ref.child("date").setValue(docPhone.getEditText().getText().toString());
                 if(!docCheckupInfo.getEditText().getText().toString().matches(""))
                     db_ref.child("checkInfo").setValue(docCheckupInfo.getEditText().getText().toString());
 
