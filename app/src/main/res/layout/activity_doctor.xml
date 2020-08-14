@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Doctor"
+    tools:context=".AddDoctor"
     android:orientation="vertical"
     android:background="@drawable/background_color"
     android:padding="20dp">
@@ -26,49 +26,82 @@
         android:textSize="18sp"
         android:transitionName="logo_desc" />
 
-    <Button
-        android:id="@+id/btnSampleButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10px"
-        android:background="#2CFFFFFF"
-        android:text="Sample Button"
-        android:textColor="#FFFFFF"
-        android:transitionName="button_tran" />
-
-    <Button
-        android:id="@+id/btnSampleButton2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10px"
-        android:background="#2CFFFFFF"
-        android:text="Sample Button 2"
-        android:textColor="#FFFFFF"
-        android:transitionName="button_tran" />
-
-    <Button
-        android:id="@+id/btnSampleButton3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10px"
-        android:background="#2CFFFFFF"
-        android:text="Sample Button 3"
-        android:textColor="#FFFFFF"
-        android:transitionName="button_tran" />
-
-    <Button
-        android:id="@+id/btnSampleButton4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10px"
-        android:background="#2CFFFFFF"
-        android:text="Sample Button 4"
-        android:textColor="#FFFFFF"
-        android:transitionName="button_tran" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/doc_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Full Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/doc_date"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/doc_CheckupInfo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:hint="Contents">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="232dp"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="#2CFFFFFF"
+            android:text="Cancel"
+            android:textColor="#FFFFFF"
+            android:transitionName="button_tran" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="#2CFFFFFF"
+            android:text="Save"
+            android:textColor="#FFFFFF"
+            android:transitionName="button_tran" />
+
+    </RelativeLayout>
 
 </LinearLayout>
