@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,6 @@ public class EmergencyContact extends AppCompatActivity {
     TextInputLayout name, email, phone;
     DatabaseReference db_ref;
     private static final String TAG = "AddEmergencyContact";
-    Contact contact;
     long maxid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +32,30 @@ public class EmergencyContact extends AppCompatActivity {
         // Grab fields from XML
         //============================================
         name = findViewById(R.id.em_name);
+        final EditText editName = (EditText) name.getEditText();
         email = findViewById(R.id.em_email);
+        final EditText editEmail = (EditText) email.getEditText();
         phone = findViewById(R.id.em_phoneNumber);
+        final EditText editPhone = (EditText) phone.getEditText();
         btnSave = (Button)findViewById(R.id.btnSave);
         btnCancel = (Button)findViewById(R.id.btnCancel);
         //============================================
-        // NOTE CLASS INSTANTIATION, DB INITIALIZATION
+        // DB INITIALIZATION
         //============================================
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Emergency");
+
+        //============================================
+        // GRAB DB VALUES AND FILL OUT FORM
+        //============================================
         db_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                    maxid=snapshot.getChildrenCount();
+                if(snapshot.exists()) {
+                    editName.setText(snapshot.child("name").getValue().toString());
+                    editEmail.setText(snapshot.child("email").getValue().toString());
+                    editPhone.setText(snapshot.child("phoneNumber").getValue().toString());
+                }
             }
 
             @Override
@@ -53,7 +63,7 @@ public class EmergencyContact extends AppCompatActivity {
 
             }
         });
-         contact = new Contact();
+
 
         //============================================
         // WHEN USER CLICKS "Save"
@@ -61,10 +71,13 @@ public class EmergencyContact extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                contact.setName(name.getEditText().getText().toString());
-                contact.setEmail(email.getEditText().getText().toString());
-                contact.setPhoneNumber(phone.getEditText().getText().toString());
-                db_ref.setValue(contact);
+                if(!name.getEditText().getText().toString().matches(""))
+                    db_ref.child("name").setValue(name.getEditText().getText().toString());
+                if(!email.getEditText().getText().toString().matches(""))
+                    db_ref.child("email").setValue(email.getEditText().getText().toString());
+                if(!phone.getEditText().getText().toString().matches(""))
+                    db_ref.child("phoneNumber").setValue(phone.getEditText().getText().toString());
+
 
                 Intent intent = new Intent(view.getContext(), Home.class);
                 startActivity(intent);

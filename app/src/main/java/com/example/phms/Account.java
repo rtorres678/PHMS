@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -20,12 +21,13 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Account extends AppCompatActivity {
-
+    //============================================
+    // VARIABLES
+    //============================================
     Button regUpdateBtn, btnCancel;
     TextInputLayout regName, regPhoneNumber, regGender, regWeight, regHeight, regCalorieGoal;
     DatabaseReference db_ref;
     private static final String TAG = "Account";
-    User user;
     String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,28 +35,61 @@ public class Account extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         getSupportActionBar().hide();
 
-        //============================================
-        // VARIABLES
-        //============================================
 
         //============================================
         // Grab fields from XML
         //============================================
         regName = findViewById(R.id.reg_name);
-        regPhoneNumber = findViewById(R.id.reg_phoneNumber);
-        regGender = findViewById(R.id.reg_gender);
-        regWeight = findViewById(R.id.reg_weight);
-        regHeight = findViewById(R.id.reg_height);
-        regCalorieGoal = findViewById(R.id.reg_calorieGoal);
-        regUpdateBtn = findViewById(R.id.reg_updateBtn);
+        final EditText editName = (EditText) regName.getEditText();
 
+        regPhoneNumber = findViewById(R.id.reg_phoneNumber);
+        final EditText editPhoneNumber = (EditText) regPhoneNumber.getEditText();
+
+        regGender = findViewById(R.id.reg_gender);
+        final EditText editGender = (EditText) regGender.getEditText();
+
+        regWeight = findViewById(R.id.reg_weight);
+        final EditText editWeight = (EditText) regWeight.getEditText();
+
+        regHeight = findViewById(R.id.reg_height);
+        final EditText editHeight = (EditText) regHeight.getEditText();
+
+        regCalorieGoal = findViewById(R.id.reg_calorieGoal);
+        final EditText editCalorieGoal = (EditText) regCalorieGoal.getEditText();
+
+        regUpdateBtn = findViewById(R.id.reg_updateBtn);
         btnCancel = findViewById(R.id.btnCancel);
 
         //============================================
-        // USER CLASS INSTANTIATION, DB INITIALIZATION
+        // DB INITIALIZATION
         //============================================
-        user = new User();
-        db_ref = FirebaseDatabase.getInstance().getReference().child("Users");
+        String uid =FirebaseAuth.getInstance().getCurrentUser().getUid(); //get current user's id
+        db_ref = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+
+
+        //============================================
+        // GRAB DB VALUES AND FILL OUT FORM
+        //============================================
+        db_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    editName.setText(snapshot.child("name").getValue().toString());
+                    editPhoneNumber.setText(snapshot.child("phoneNumber").getValue().toString());
+                    editGender.setText(snapshot.child("gender").getValue().toString());
+                    editWeight.setText(snapshot.child("weight").getValue().toString());
+                    editHeight.setText(snapshot.child("height").getValue().toString());
+                    editCalorieGoal.setText(snapshot.child("calorieGoal").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         //============================================
         // WHEN USER CLICKS "NEXT"
         //============================================
@@ -66,23 +101,39 @@ public class Account extends AppCompatActivity {
                 // Fine for now -> Proceed to register input in database
                 //============================================
                 //Get all the values
-                String name = regName.getEditText().getText().toString();
-                String phoneNumber = regPhoneNumber.getEditText().getText().toString();
-                String gender = regGender.getEditText().getText().toString();
-                int weight = Integer.parseInt(regWeight.getEditText().getText().toString());
-                int height = Integer.parseInt(regHeight.getEditText().getText().toString());
-                int calorieGoal = Integer.parseInt(regCalorieGoal.getEditText().getText().toString());
-                user.setName(name);
-                user.setPhoneNumber(phoneNumber);
-                user.setGender(gender);
-                user.setWeight(weight);
-                user.setHeight(height);
-                user.setCalorieGoal(calorieGoal);
+                String name = "", phoneNumber="", gender="";
+                int weight=0, height=0, calorieGoal=0;
 
-                //============================================
-                // SPECIFY NAME OF CHILD NODE OF USER CLASS THAT WE ARE GOING TO ADD
-                //============================================
-                db_ref.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
+                if(!regName.getEditText().getText().toString().matches("")) {
+                    name = regName.getEditText().getText().toString();
+                    db_ref.child("name").setValue(name);
+                }
+
+                if(!regPhoneNumber.getEditText().getText().toString().matches("")) {
+                    phoneNumber = regPhoneNumber.getEditText().getText().toString();
+                    db_ref.child("phoneNumber").setValue(phoneNumber);
+                }
+
+                if(!regGender.getEditText().getText().toString().matches("")) {
+                    gender = regGender.getEditText().getText().toString();
+                    db_ref.child("gender").setValue(gender);
+                }
+
+                if(regWeight.getEditText().getText().toString().matches("\\d+")) {
+                    weight = Integer.parseInt(regWeight.getEditText().getText().toString());
+                    db_ref.child("weight").setValue(weight);
+                }
+
+                if(regHeight.getEditText().getText().toString().matches("\\d+")) {
+                    height = Integer.parseInt(regHeight.getEditText().getText().toString());
+                    db_ref.child("height").setValue(height);
+                }
+
+                if(regCalorieGoal.getEditText().getText().toString().matches("\\d+")) {
+                    calorieGoal = Integer.parseInt(regCalorieGoal.getEditText().getText().toString());
+                    db_ref.child("calorieGoal").setValue(calorieGoal);
+                }
+
                 //upload to db
                 Log.d(TAG, "DB Update executed");
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,33 +51,41 @@ public class BasicInfo extends AppCompatActivity {
         regNextBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //============================================
-                // Could use some form validation!
-                // Fine for now -> Proceed to register input in database
-                //============================================
-                //Get all the values
-                String name = regName.getEditText().getText().toString();
-                String phoneNumber = regPhoneNumber.getEditText().getText().toString();
-                String gender = regGender.getEditText().getText().toString();
-                int weight = Integer.parseInt(regWeight.getEditText().getText().toString());
-                int height = Integer.parseInt(regHeight.getEditText().getText().toString());
-                int calorieGoal = Integer.parseInt(regCalorieGoal.getEditText().getText().toString());
-                user.setName(name);
-                user.setPhoneNumber(phoneNumber);
-                user.setGender(gender);
-                user.setWeight(weight);
-                user.setHeight(height);
-                user.setCalorieGoal(calorieGoal);
+                if(!regName.getEditText().getText().toString().matches("")
+                && !regPhoneNumber.getEditText().getText().toString().matches("")
+                && !regGender.getEditText().getText().toString().matches("")
+                && regWeight.getEditText().getText().toString().matches("\\d+")
+                && regHeight.getEditText().getText().toString().matches("\\d+")
+                && regCalorieGoal.getEditText().getText().toString().matches("\\d+")) {
 
-                //============================================
-                // SPECIFY NAME OF CHILD NODE OF USER CLASS THAT WE ARE GOING TO ADD
-                //============================================
-                db_ref.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
-                //upload to db
-                Log.d(TAG, "DB Upload executed");
 
-                Intent intent = new Intent(view.getContext(), Home.class);
-                startActivity(intent);
+                    //Get all the values
+                    String name = regName.getEditText().getText().toString();
+                    String phoneNumber = regPhoneNumber.getEditText().getText().toString();
+                    String gender = regGender.getEditText().getText().toString();
+                    int weight = Integer.parseInt(regWeight.getEditText().getText().toString());
+                    int height = Integer.parseInt(regHeight.getEditText().getText().toString());
+                    int calorieGoal = Integer.parseInt(regCalorieGoal.getEditText().getText().toString());
+                    user.setName(name);
+                    user.setPhoneNumber(phoneNumber);
+                    user.setGender(gender);
+                    user.setWeight(weight);
+                    user.setHeight(height);
+                    user.setCalorieGoal(calorieGoal);
+
+                    //============================================
+                    // SPECIFY NAME OF CHILD NODE OF USER CLASS THAT WE ARE GOING TO ADD
+                    //============================================
+                    db_ref.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
+                    //upload to db
+                    Log.d(TAG, "DB Upload executed");
+
+                    Intent intent = new Intent(view.getContext(), Home.class);
+                    startActivity(intent);
+                }
+                else
+                    Toast.makeText(BasicInfo.this, "Input is invalid!",
+                            Toast.LENGTH_SHORT).show();
             }
         });
     }

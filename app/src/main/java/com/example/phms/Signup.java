@@ -39,6 +39,14 @@ public class Signup extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //============================================
+        // AUTOMATICALLY LOGIN IF POSSIBLE
+        //============================================
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            Intent intent = new Intent(Signup.this, Home.class);
+            startActivity(intent);
+        }
+
+        //============================================
         // CREATE AND RELATE JAVA VARIABLES WITH EACH XML ELEMENT
         //============================================
         regEmailAddress = findViewById(R.id.reg_emailAddress);
@@ -62,10 +70,8 @@ public class Signup extends AppCompatActivity {
 
                 createAccount(emailAddress, password);
                 Log.d(TAG, "phms_signInWithEmail:success");
-                signIn(emailAddress, password);
-                Intent intent = new Intent(view.getContext(), BasicInfo.class);
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                startActivity(intent);
+                //signIn(emailAddress, password);
+
             }
         });
 
@@ -86,13 +92,32 @@ public class Signup extends AppCompatActivity {
     }
 
     private void createAccount(String email, String password){
+        final String em = email;
+        final String pw = password;
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             //success, update UI with signed-in user info
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            //FirebaseUser user = mAuth.getCurrentUser();
+                            /*Intent intent = new Intent(Signup.this, BasicInfo.class);
+                            intent.putExtra("EMAIL", em);
+                            intent.putExtra("PASSWORD", pw);
+                            startActivity(intent);*/
+                            mAuth.signInWithEmailAndPassword(em, pw)
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+
+                                                Intent intent = new Intent(Signup.this, BasicInfo.class);
+                                                startActivity(intent);
+                                            }
+                                            else {
+                                            }
+                                        }
+                                    });
                             Toast.makeText(Signup.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
@@ -103,22 +128,4 @@ public class Signup extends AppCompatActivity {
                     }
                 });
     }
-
-    private void signIn(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            Toast.makeText(Signup.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-
-
 }
